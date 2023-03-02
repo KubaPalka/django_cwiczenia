@@ -20,12 +20,6 @@ class Band(models.Model):
     still_active = models.BooleanField(default=True)
     genre = models.IntegerField(choices=GENRE, default=-1)
 
-class Category(models.Model):
-    def __str__(self):
-        return f"Id: {self.pk}, name: {self.name}, description: {self.description}"
-    name = models.CharField(max_length=64)
-    description = models.TextField(null=True)
-
 class Article(models.Model):
     def __str__(self):
         return f"title: {self.title}, author: {self.author}, date_added: {self.date_added}, status: {self.status}, start_date: {self.start_date}, end_date: {self.end_date}"
@@ -42,7 +36,19 @@ class Article(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
 
+class Category(models.Model):
+    def __str__(self):
+        return f"Id: {self.pk}, name: {self.name}, description: {self.description}"
+    name = models.CharField(max_length=64)
+    description = models.TextField(null=True)
+    article = models.ManyToManyField(Article)
+
+
+
+
 class Album(models.Model):
+    def __str__(self):
+        return f"Id: {id}, title: {self.title}, issue: {self.issue}, scor: {self.score}, band: {self.band}"
     SCORE = (
         (0, "0"),
         (1, "*"),
@@ -54,3 +60,15 @@ class Album(models.Model):
     title = models.CharField(max_length=64)
     issue = models.IntegerField()
     score = models.IntegerField(choices=SCORE)
+    band = models.ForeignKey(Band, on_delete=models.CASCADE, null=True)
+
+
+class Song(models.Model):
+    def __str__(self):
+        return f"Title: {self.title}, duration: {self.duration}"
+    title = models.CharField(max_length=128)
+    duration = models.TimeField(null=True)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, null=True)
+
+
+

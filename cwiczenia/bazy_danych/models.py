@@ -70,5 +70,11 @@ class Song(models.Model):
     duration = models.TimeField(null=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, null=True)
 
+class Person(models.Model):
+    name = models.CharField(max_length=64)
 
+class Position(models.Model):
+    position_name = models.CharField(max_length=64)
+    salary = models.FloatField()
+    person = models.OneToOneField(Person, on_delete=models.CASCADE, primary_key=True)
 

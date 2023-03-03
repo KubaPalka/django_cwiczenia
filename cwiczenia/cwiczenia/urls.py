@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from dzien1.views import hello, random_number, random_from_max, random_min_max, hello_name, add_values
-from bazy_danych.views import categories
+from bazy_danych.views import categories, show_band
+from domowe_app.views import show_movies, show_details
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,7 @@ urlpatterns = [
     path('hello/<name>/', hello_name),
     path('add/<val_1>/<val_2>/', add_values),
     path('categories/', categories),
+    path('show-band/<int:id>/', show_band),
+    path('movies/', show_movies),
+    path('movie-details/<id>', show_details),
 ]
